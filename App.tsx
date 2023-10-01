@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Image,
+  ImageProps,
   Pressable,
   SafeAreaView,
   ScrollView,
@@ -10,6 +11,80 @@ import {
   View,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+const Section = (props: { children: any }) => {
+  return <View style={styles.section.container}>{props.children}</View>;
+};
+
+const SectionHeading = (props: { children: any }) => {
+  return <View style={styles.section.heading}>{props.children}</View>;
+};
+
+const H1 = (props: { children: any }) => {
+  return <Text style={styles.page.h1}>{props.children}</Text>;
+};
+
+const H3 = (props: { children: any }) => {
+  return <Text style={styles.page.h3}>{props.children}</Text>;
+};
+
+const LotteryCard = (props: {
+  img: ImageProps;
+  highlight?: string;
+  label: string;
+  numbers: string;
+}) => {
+  return (
+    <Pressable style={styles.card.container}>
+      <Image source={props.img} style={styles.card.image} />
+      {props.highlight && (
+        <Text style={styles.card.highlight}>{props.highlight}</Text>
+      )}
+      <Text style={styles.card.label}>{props.label}</Text>
+      <Text style={styles.card.numbers}>{props.numbers}</Text>
+    </Pressable>
+  );
+};
+
+const SeeMore = (props: { text: string }) => {
+  return (
+    <Pressable style={styles.section.seeMore}>
+      <Text style={styles.section.seeMoreLabel}>{props.text}</Text>
+      <MaterialIcons name="arrow-forward-ios" size={16} color="white" />
+    </Pressable>
+  );
+};
+
+const NewsItem = (props: {
+  img: ImageProps;
+  title: string;
+  date: string;
+  source: string;
+  text: string;
+}) => {
+  return (
+    <Pressable style={styles.news.item}>
+      <Image source={props.img} style={styles.news.image} />
+      <View style={styles.news.content}>
+        <Text style={styles.news.title}>{props.title}</Text>
+        <View style={styles.news.subtitle}>
+          <Text style={styles.news.subtitleText}>{props.date}</Text>
+          <Text style={styles.news.subtitleText}>{props.source}</Text>
+        </View>
+        <Text style={styles.news.text}>{props.text}</Text>
+      </View>
+    </Pressable>
+  );
+};
+
+const NavItem = (props: { icon: string; label: string }) => {
+  return (
+    <Pressable style={styles.nav.button}>
+      <MaterialIcons name={props.icon} size={28} color="white" />
+      <Text style={styles.nav.label}>{props.label}</Text>
+    </Pressable>
+  );
+};
 
 const Inft2508App = () => {
   return (
@@ -37,168 +112,104 @@ const Inft2508App = () => {
           </Pressable>
         </View>
         {/*  Today's lottery results */}
-        <View style={styles.section.container}>
-          <View style={styles.section.heading}>
-            <Text style={styles.page.h1}>Today's Lottery Results</Text>
-            <Text style={styles.page.h3}>October 1, 2023</Text>
-          </View>
+        <Section>
+          <SectionHeading>
+            <H1>Today's Lottery Results</H1>
+            <H3>October 1, 2023</H3>
+          </SectionHeading>
           <ScrollView horizontal={true}>
-            <Pressable style={styles.card.container}>
-              <Image
-                source={require('./assets/result-placeholder.png')}
-                style={styles.card.image}
-              />
-              <Text style={styles.card.prizeWon}>Jackpot Winner</Text>
-              <Text style={styles.card.label}>Norsk Tipping</Text>
-              <Text style={styles.card.numbers}>1 2 3 4 5</Text>
-            </Pressable>
-            <Pressable style={styles.card.container}>
-              <Image
-                source={require('./assets/result-placeholder.png')}
-                style={styles.card.image}
-              />
-              <Text style={styles.card.prizeWon}>2nd Prize Winner</Text>
-              <Text style={styles.card.label}>Powerball</Text>
-              <Text style={styles.card.numbers}>6 7 8 9 10</Text>
-            </Pressable>
-            <Pressable style={styles.card.container}>
-              <Image
-                source={require('./assets/result-placeholder.png')}
-                style={styles.card.image}
-              />
-              <Text style={styles.card.prizeWon}>3rd Prize Winner</Text>
-              <Text style={styles.card.label}>Mega Millions</Text>
-              <Text style={styles.card.numbers}>11 12 13 14 15</Text>
-            </Pressable>
-            <Pressable style={styles.card.container}>
-              <Image
-                source={require('./assets/result-placeholder.png')}
-                style={styles.card.image}
-              />
-              <Text style={styles.card.label}>EuroMillions</Text>
-              <Text style={styles.card.numbers}>12 13 14 15 16 17</Text>
-            </Pressable>
+            <LotteryCard
+              img={require('./assets/result-placeholder.png')}
+              highlight={'Jackpot Winner'}
+              label={'Norsk Tipping'}
+              numbers={'1 2 3 4 5'}
+            />
+            <LotteryCard
+              img={require('./assets/result-placeholder.png')}
+              highlight={'2nd Prize Winner'}
+              label={'Powerball'}
+              numbers={'6 7 8 9 10'}
+            />
+            <LotteryCard
+              img={require('./assets/result-placeholder.png')}
+              highlight={'3rd Prize Winner'}
+              label={'Mega Millions'}
+              numbers={'11 12 13 14 15'}
+            />
+            <LotteryCard
+              img={require('./assets/result-placeholder.png')}
+              label={'EuroMillions'}
+              numbers={'12 13 14 15 16 17'}
+            />
           </ScrollView>
-        </View>
+        </Section>
         {/*  Previous lottery results */}
-        <View style={styles.section.container}>
-          <View style={styles.section.heading}>
-            <Text style={styles.page.h1}>Previous Lottery Results</Text>
-            <Pressable style={styles.section.seeMore}>
-              <Text style={styles.section.seeMoreLabel}>View More Results</Text>
-              <MaterialIcons name="arrow-forward-ios" size={16} color="white" />
-            </Pressable>
-          </View>
+        <Section>
+          <SectionHeading>
+            <H1>Previous Lottery Results</H1>
+            <SeeMore text={'View All Results'} />
+          </SectionHeading>
           <ScrollView horizontal={true}>
-            <Pressable style={styles.card.container}>
-              <Image
-                source={require('./assets/result-placeholder.png')}
-                style={styles.card.image}
-              />
-              <Text style={styles.card.prizeWon}>5th Prize Winner</Text>
-              <Text style={styles.card.label}>Lotto 6/49</Text>
-              <Text style={styles.card.numbers}>1 2 3 4 5</Text>
-            </Pressable>
-            <Pressable style={styles.card.container}>
-              <Image
-                source={require('./assets/result-placeholder.png')}
-                style={styles.card.image}
-              />
-              <Text style={styles.card.prizeWon}>8th Prize Winner</Text>
-              <Text style={styles.card.label}>SuperEnalotto</Text>
-              <Text style={styles.card.numbers}>6 7 8 9 10</Text>
-            </Pressable>
-            <Pressable style={styles.card.container}>
-              <Image
-                source={require('./assets/result-placeholder.png')}
-                style={styles.card.image}
-              />
-              <Text style={styles.card.prizeWon}>7th Prize Winner</Text>
-              <Text style={styles.card.label}>Mega Millions</Text>
-              <Text style={styles.card.numbers}>11 12 13 14 15</Text>
-            </Pressable>
-            <Pressable style={styles.card.container}>
-              <Image
-                source={require('./assets/result-placeholder.png')}
-                style={styles.card.image}
-              />
-              <Text style={styles.card.label}>EuroMillions</Text>
-              <Text style={styles.card.numbers}>12 13 14 15 16 17</Text>
-            </Pressable>
+            <LotteryCard
+              img={require('./assets/result-placeholder.png')}
+              highlight={'5th Prize Winner'}
+              label={'Lotto 6/49'}
+              numbers={'1 2 3 4 5'}
+            />
+            <LotteryCard
+              img={require('./assets/result-placeholder.png')}
+              highlight={'8th Prize Winner'}
+              label={'SuperEnalotto'}
+              numbers={'6 7 8 9 10'}
+            />
+            <LotteryCard
+              img={require('./assets/result-placeholder.png')}
+              highlight={'7th Prize Winner'}
+              label={'Mega Millions'}
+              numbers={'11 12 13 14 15'}
+            />
+            <LotteryCard
+              img={require('./assets/result-placeholder.png')}
+              label={'EuroMillions'}
+              numbers={'12 13 14 15 16 17'}
+            />
           </ScrollView>
-        </View>
+        </Section>
         {/*  Lottery news */}
-        <View style={styles.section.container}>
-          <View style={styles.section.heading}>
-            <Text style={styles.page.h1}>Lottery News</Text>
-            <Pressable style={styles.section.seeMore}>
-              <Text style={styles.section.seeMoreLabel}>View All News</Text>
-              <MaterialIcons name="arrow-forward-ios" size={16} color="white" />
-            </Pressable>
-          </View>
+        <Section>
+          <SectionHeading>
+            <H1>Lottery News</H1>
+            <SeeMore text={'View All News'} />
+          </SectionHeading>
           <View style={styles.news.container}>
-            <Pressable style={styles.news.item}>
-              <Image
-                source={require('./assets/news-placeholder.png')}
-                style={styles.news.image}
-              />
-              <View style={styles.news.content}>
-                <Text style={styles.news.title}>
-                  New Lottery Game Launching Soon
-                </Text>
-                <View style={styles.news.subtitle}>
-                  <Text style={styles.news.subtitleText}>October 1, 2023</Text>
-                  <Text style={styles.news.subtitleText}>LotteryNEWS</Text>
-                </View>
-                <Text style={styles.news.text}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  orci eget fauci...
-                </Text>
-              </View>
-            </Pressable>
-            <Pressable style={styles.news.item}>
-              <Image
-                source={require('./assets/news-placeholder.png')}
-                style={styles.news.image}
-              />
-              <View style={styles.news.content}>
-                <Text style={styles.news.title}>
-                  Tips to Increase Your Chances of Winning
-                </Text>
-                <View style={styles.news.subtitle}>
-                  <Text style={styles.news.subtitleText}>October 1, 2023</Text>
-                  <Text style={styles.news.subtitleText}>Norsk Tipping</Text>
-                </View>
-                <Text style={styles.news.text}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  orci eget fauci...
-                </Text>
-              </View>
-            </Pressable>
+            <NewsItem
+              img={require('./assets/news-placeholder.png')}
+              title={'New Lottery Game Launching Soon'}
+              date={'October 1, 2023'}
+              source={'LotteryNEWS'}
+              text={
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed orci eget fauci...'
+              }
+            />
+            <NewsItem
+              img={require('./assets/news-placeholder.png')}
+              title={'Tips to Increase Your Chances of Winning'}
+              date={'October 1, 2023'}
+              source={'Norsk Tipping'}
+              text={
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed orci eget fauci...'
+              }
+            />
           </View>
-        </View>
+        </Section>
       </ScrollView>
+      {/*  Bottom nav bar */}
       <View style={styles.nav.container}>
-        <Pressable style={styles.nav.button}>
-          <MaterialIcons name="home" size={28} color="white" />
-          <Text style={styles.nav.label}>Home</Text>
-        </Pressable>
-        <Pressable style={styles.nav.button}>
-          <MaterialIcons name="whatshot" size={28} color="white" />
-          <Text style={styles.nav.label}>Hot Numbers</Text>
-        </Pressable>
-        <Pressable style={styles.nav.button}>
-          <MaterialIcons name="calendar-month" size={28} color="white" />
-          <Text style={styles.nav.label}>Results</Text>
-        </Pressable>
-        <Pressable style={styles.nav.button}>
-          <MaterialIcons name="newspaper" size={28} color="white" />
-          <Text style={styles.nav.label}>News</Text>
-        </Pressable>
-        <Pressable style={styles.nav.button}>
-          <MaterialIcons name="insights" size={28} color="white" />
-          <Text style={styles.nav.label}>statistics</Text>
-        </Pressable>
+        <NavItem icon={'home'} label={'Home'} />
+        <NavItem icon={'whatshot'} label={'Hot Numbers'} />
+        <NavItem icon={'calendar-month'} label={'Results'} />
+        <NavItem icon={'newspaper'} label={'News'} />
+        <NavItem icon={'insights'} label={'Statistics'} />
       </View>
     </SafeAreaView>
   );
@@ -316,7 +327,7 @@ const styles = {
       width: '100%',
       height: 200,
     },
-    prizeWon: {
+    highlight: {
       fontSize: 12,
       padding: 4,
       position: 'absolute',
