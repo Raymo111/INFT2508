@@ -322,3 +322,5 @@ google-services.json
 
 # Android Profiling
 *.hprof
+/*.zip
+android/app/release/output-metadata.json
