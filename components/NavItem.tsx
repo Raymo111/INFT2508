@@ -3,7 +3,6 @@ import { Styles } from './Styles';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 
-
 const NavItem = (props: { icon: string; label: string }) => {
   return (
     <Pressable style={Styles.nav.button}>

@@ -1,0 +1,68 @@
+{
+  "initialResultsToday": [
+	{
+	  "id": 1,
+	  "highlight": "Jackpot Winner",
+	  "label": "Norsk Tipping",
+	  "numbers": "1 2 3 4 5"
+	},
+	{
+	  "id": 2,
+	  "highlight": "2nd Prize Winner",
+	  "label": "Powerball",
+	  "numbers": "6 7 8 9 10"
+	},
+	{
+	  "id": 3,
+	  "highlight": "3rd Prize Winner",
+	  "label": "Mega Millions",
+	  "numbers": "11 12 13 14 15"
+	},
+	{
+	  "id": 4,
+	  "label": "EuroMillions",
+	  "numbers": "12 13 14 15 16 17"
+	}
+  ],
+  "initialResultsPrevious": [
+	{
+	  "id": 1,
+	  "highlight": "5th Prize Winner",
+	  "label": "Lotto 6/49",
+	  "numbers": "1 2 3 4 5"
+	},
+	{
+	  "id": 2,
+	  "highlight": "8th Prize Winner",
+	  "label": "SuperEnalotto",
+	  "numbers": "6 7 8 9 10"
+	},
+	{
+	  "id": 3,
+	  "highlight": "7th Prize Winner",
+	  "label": "Mega Millions",
+	  "numbers": "11 12 13 14 15"
+	},
+	{
+	  "id": 4,
+	  "label": "EuroMillions",
+	  "numbers": "12 13 14 15 16 17"
+	}
+  ],
+  "initialNews": [
+	{
+	  "id": 1,
+	  "title": "New Lottery Game Launching Soon",
+	  "date": "October 1, 2023",
+	  "source": "LotteryNEWS",
+	  "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed orci eget fauci..."
+	},
+	{
+	  "id": 2,
+	  "title": "Tips to Increase Your Chances of Winning",
+	  "date": "October 1, 2023",
+	  "source": "Norsk Tipping",
+	  "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed orci eget fauci..."
+	}
+  ]
+}

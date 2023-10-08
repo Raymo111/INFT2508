@@ -7,24 +7,6 @@ export const Styles = {
     },
   }),
   header: StyleSheet.create({
-    container: {
-      paddingTop: 12,
-      paddingBottom: 12,
-      paddingLeft: 8,
-      paddingRight: 8,
-      width: '100%',
-      backgroundColor: '#222',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      flexDirection: 'row',
-    },
-    title: {
-      flex: 1,
-      color: '#FFF',
-      fontSize: 20,
-      fontWeight: 'bold',
-      marginLeft: 8,
-    },
     icon: {
       width: 24,
       height: 24,

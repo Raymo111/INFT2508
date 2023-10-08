@@ -4,12 +4,13 @@ import { Styles } from './Styles';
 
 const LotteryCard = (props: {
   img: ImageProps;
-  highlight?: string;
-  label: string;
-  numbers: string;
+  highlight?: string | null;
+  label: string | null;
+  numbers: string | null;
+  showResults: () => void;
 }) => {
   return (
-    <Pressable style={Styles.card.container}>
+    <Pressable style={Styles.card.container} onPress={props.showResults}>
       <Image source={props.img} style={Styles.card.image} />
       {props.highlight && (
         <Text style={Styles.card.highlight}>{props.highlight}</Text>

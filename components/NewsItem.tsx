@@ -1,16 +1,17 @@
-import {Image, ImageProps, Pressable, Text, View} from 'react-native';
-import {Styles} from './Styles';
+import { Image, ImageProps, Pressable, Text, View } from 'react-native';
+import { Styles } from './Styles';
 import React from 'react';
 
 const NewsItem = (props: {
   img: ImageProps;
-  title: string;
-  date: string;
-  source: string;
-  text: string;
+  title: string | null;
+  date: string | null;
+  source: string | null;
+  text: string | null;
+  showNews: () => void;
 }) => {
   return (
-    <Pressable style={Styles.news.item}>
+    <Pressable style={Styles.news.item} onPress={props.showNews}>
       <Image source={props.img} style={Styles.news.image} />
       <View style={Styles.news.content}>
         <Text style={Styles.news.title}>{props.title}</Text>
