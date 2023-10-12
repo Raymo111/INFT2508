@@ -7,10 +7,23 @@ const LotteryCard = (props: {
   highlight?: string | null;
   label: string | null;
   numbers: string | null;
-  showResults: () => void;
+  showResults: (
+    img: ImageProps,
+    highlight: string | null,
+    label: string | null,
+    numbers: string | null,
+  ) => void;
 }) => {
+  const handlePress = () => {
+    props.showResults(
+      props.img,
+      props.highlight ? props.highlight : null,
+      props.label,
+      props.numbers,
+    );
+  };
   return (
-    <Pressable style={Styles.card.container} onPress={props.showResults}>
+    <Pressable style={Styles.card.container} onPress={handlePress}>
       <Image source={props.img} style={Styles.card.image} />
       {props.highlight && (
         <Text style={Styles.card.highlight}>{props.highlight}</Text>

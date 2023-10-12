@@ -8,10 +8,25 @@ const NewsItem = (props: {
   date: string | null;
   source: string | null;
   text: string | null;
-  showNews: () => void;
+  showNews: (
+    img: ImageProps,
+    title: string | null,
+    date: string | null,
+    source: string | null,
+    text: string | null,
+  ) => void;
 }) => {
+  const handlePress = () => {
+    props.showNews(
+      props.img,
+      props.title,
+      props.date,
+      props.source,
+      props.text,
+    );
+  };
   return (
-    <Pressable style={Styles.news.item} onPress={props.showNews}>
+    <Pressable style={Styles.news.item} onPress={handlePress}>
       <Image source={props.img} style={Styles.news.image} />
       <View style={Styles.news.content}>
         <Text style={Styles.news.title}>{props.title}</Text>

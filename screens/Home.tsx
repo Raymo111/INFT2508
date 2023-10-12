@@ -8,6 +8,7 @@ import {
   SectionHeading,
 } from '../components/Components';
 import {
+  ImageProps,
   Pressable,
   SafeAreaView,
   ScrollView,
@@ -42,12 +43,23 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
     new Date(Date.now()).toLocaleDateString(),
   );
 
-  const showResultsHandler = () => {
-    navigation.navigate('Results');
+  const showResultsHandler = (
+    img: ImageProps,
+    highlight: string | null,
+    label: string | null,
+    numbers: string | null,
+  ) => {
+    navigation.navigate('Result', { img, highlight, label, numbers });
   };
 
-  const showNewsHandler = () => {
-    navigation.navigate('News');
+  const showNewsHandler = (
+    img: ImageProps,
+    title: string | null,
+    date: string | null,
+    source: string | null,
+    text: string | null,
+  ) => {
+    navigation.navigate('NewsItem', { img, title, date, source, text });
   };
 
   const searchChangedHandler = (search: string) => {
@@ -107,7 +119,7 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
               resultsToday.map(result => (
                 <LotteryCard
                   key={result.id}
-                  img={result.img ? result.img : images.newsPlaceholder}
+                  img={result.img ? result.img : images.resultPlaceholder}
                   highlight={result.highlight}
                   label={result.label}
                   numbers={result.numbers}
@@ -170,10 +182,8 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
       {/*  Bottom nav bar */}
       <View style={Styles.nav.container}>
         <NavItem icon={'home'} label={'Home'} />
-        <NavItem icon={'whatshot'} label={'Hot Numbers'} />
         <NavItem icon={'calendar-month'} label={'Results'} />
         <NavItem icon={'newspaper'} label={'News'} />
-        <NavItem icon={'insights'} label={'Statistics'} />
       </View>
     </SafeAreaView>
   );

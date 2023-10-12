@@ -1,4 +1,4 @@
-import { Image, ImageProps, Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { Styles } from './Styles';
 import React from 'react';
 
