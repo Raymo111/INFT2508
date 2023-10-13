@@ -20,7 +20,6 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import LotteryCard from '../components/LotteryCard';
 import SeeMore from '../components/SeeMore';
 import NewsItem from '../components/NewsItem';
-import NavItem from '../components/NavItem';
 
 const HomeScreen = ({ navigation }: { navigation: any }) => {
   const images = {
@@ -59,7 +58,7 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
     source: string | null,
     text: string | null,
   ) => {
-    navigation.navigate('NewsItem', { img, title, date, source, text });
+    navigation.navigate('NewsStory', { img, title, date, source, text });
   };
 
   const searchChangedHandler = (search: string) => {
@@ -179,12 +178,6 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
           </View>
         </Section>
       </ScrollView>
-      {/*  Bottom nav bar */}
-      <View style={Styles.nav.container}>
-        <NavItem icon={'home'} label={'Home'} />
-        <NavItem icon={'calendar-month'} label={'Results'} />
-        <NavItem icon={'newspaper'} label={'News'} />
-      </View>
     </SafeAreaView>
   );
 };

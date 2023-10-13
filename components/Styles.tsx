@@ -151,23 +151,5 @@ export const Styles = {
       color: '#FFF',
     },
   }),
-  nav: StyleSheet.create({
-    container: {
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      backgroundColor: '#222',
-      padding: 8,
-    },
-    button: {
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: 60,
-    },
-    label: {
-      fontSize: 10,
-      color: '#FFF',
-    },
-  }),
 };
+// TODO: style all the new pages

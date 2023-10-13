@@ -1,10 +1,9 @@
 import React from 'react';
-import { View, SafeAreaView, Image, Text, ScrollView } from 'react-native';
+import { SafeAreaView, Image, Text, ScrollView } from 'react-native';
 import { Styles } from '../components/Styles';
 import { H1, H3 } from '../components/Components';
 
-// @ts-ignore
-const NewsStoryScreen = ({ route }) => {
+const NewsStoryScreen = ({ route }: { route: any }) => {
   const { img, title, date, source, text } = route.params;
   return (
     <SafeAreaView style={Styles.screen.container}>

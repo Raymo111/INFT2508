@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, SafeAreaView, Image, ScrollView } from 'react-native';
+import { SafeAreaView, Image, ScrollView } from 'react-native';
 import { Styles } from '../components/Styles';
 import { H1, H3 } from '../components/Components';
 
 // @ts-ignore
-const ResultScreen = ({ route }) => {
+const ResultScreen = ({ route }: { route: any }) => {
   const { img, highlight, label, numbers } = route.params;
   return (
     <SafeAreaView style={Styles.screen.container}>

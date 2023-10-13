@@ -5,6 +5,7 @@ import React from 'react';
 
 const SeeMore = (props: { text: string }) => {
   return (
+    // TODO: make this pressable
     <Pressable style={Styles.section.seeMore}>
       <Text style={Styles.section.seeMoreLabel}>{props.text}</Text>
       <MaterialIcons name="arrow-forward-ios" size={16} color="white" />
