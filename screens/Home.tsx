@@ -61,6 +61,14 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
     navigation.navigate('NewsStory', { img, title, date, source, text });
   };
 
+  const seeMoreResultsHandler = () => {
+    navigation.navigate('ResultsTab');
+  };
+
+  const seeMoreNewsHandler = () => {
+    navigation.navigate('NewsTab');
+  };
+
   const searchChangedHandler = (search: string) => {
     const matchedResultsToday: LotteryResult[] = [];
     const matchedResultsPrevious: LotteryResult[] = [];
@@ -134,7 +142,7 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
         <Section>
           <SectionHeading>
             <H1>Previous Lottery Results</H1>
-            <SeeMore text={'View All Results'} />
+            <SeeMore text={'View All Results'} action={seeMoreResultsHandler} />
           </SectionHeading>
           <ScrollView horizontal={true}>
             {resultsPrevious.length > 0 ? (
@@ -157,7 +165,7 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
         <Section>
           <SectionHeading>
             <H1>Lottery News</H1>
-            <SeeMore text={'View All News'} />
+            <SeeMore text={'View All News'} action={seeMoreNewsHandler} />
           </SectionHeading>
           <View style={Styles.news.container}>
             {news.length > 0 ? (
