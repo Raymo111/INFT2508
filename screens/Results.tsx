@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   H1,
   H3,
-  LotteryResult,
+  LotteryResult, News,
   Section,
   SectionHeading,
 } from '../components/Components';
@@ -15,14 +15,11 @@ const ResultsScreen = ({ navigation }: { navigation: any }) => {
     resultPlaceholder: require('../assets/result-placeholder.png'),
   };
 
-  const data = require('../assets/dummydata.json');
-
   // Initial state
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [data, setData] = useState(require('../assets/dummydata.json'));
   const [resultsToday, setResultsToday] = useState<LotteryResult[]>(
     data.initialResultsToday,
   );
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [resultsPrevious, setResultsPrevious] = useState<LotteryResult[]>(
     data.initialResultsPrevious,
   );
@@ -30,6 +27,16 @@ const ResultsScreen = ({ navigation }: { navigation: any }) => {
   const [dateToday, setDateToday] = useState(
     new Date(Date.now()).toLocaleDateString(),
   );
+
+  useEffect(() => {
+    fetch('https://cloud.raymond.li/data.json').then(response => {
+      response.json().then(res => {
+        setData(res);
+        setResultsToday(res.initialResultsToday);
+        setResultsPrevious(res.initialResultsPrevious);
+      });
+    });
+  }, []);
 
   const showResultsHandler = (
     img: ImageProps,

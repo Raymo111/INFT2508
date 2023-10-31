@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './Home';
 import { Logo } from '../components/Components';
 import ResultScreen from './Result';
+import NewsStoryScreen from './NewsStory';
 import React from 'react';
 
 const HomeStack = createNativeStackNavigator();
@@ -28,6 +29,8 @@ const HomeTabScreen = () => {
           headerRight: () => <Logo />,
         })}
       />
+      <HomeStack.Screen name="Result" component={ResultScreen} />
+      <HomeStack.Screen name="NewsStory" component={NewsStoryScreen} />
     </HomeStack.Navigator>
   );
 };

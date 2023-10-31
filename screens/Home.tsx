@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   H1,
   H3,
@@ -27,9 +27,8 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
     newsPlaceholder: require('../assets/news-placeholder.png'),
   };
 
-  const data = require('../assets/dummydata.json');
-
   // Initial state
+  const [data, setData] = useState(require('../assets/dummydata.json'));
   const [resultsToday, setResultsToday] = useState<LotteryResult[]>(
     data.initialResultsToday,
   );
@@ -41,6 +40,17 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
   const [dateToday, setDateToday] = useState(
     new Date(Date.now()).toLocaleDateString(),
   );
+
+  useEffect(() => {
+    fetch('https://cloud.raymond.li/data.json').then(response => {
+      response.json().then(res => {
+        setData(res);
+        setResultsToday(res.initialResultsToday);
+        setResultsPrevious(res.initialResultsPrevious);
+        setNews(res.initialNews);
+      });
+    });
+  }, []);
 
   const showResultsHandler = (
     img: ImageProps,

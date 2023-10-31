@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   H1,
-  H3,
+  H3, LotteryResult,
   News,
   Section,
   SectionHeading,
@@ -15,11 +15,18 @@ const NewsScreen = ({ navigation }: { navigation: any }) => {
     newsPlaceholder: require('../assets/news-placeholder.png'),
   };
 
-  const data = require('../assets/dummydata.json');
-
   // Initial state
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [data, setData] = useState(require('../assets/dummydata.json'));
   const [news, setNews] = useState<News[]>(data.initialNews);
+
+  useEffect(() => {
+    fetch('https://cloud.raymond.li/data.json').then(response => {
+      response.json().then(res => {
+        setData(res);
+        setNews(res.initialNews);
+      });
+    });
+  }, []);
 
   const showNewsHandler = (
     img: ImageProps,
