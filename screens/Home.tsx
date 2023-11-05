@@ -20,6 +20,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import LotteryCard from '../components/LotteryCard';
 import SeeMore from '../components/SeeMore';
 import NewsItem from '../components/NewsItem';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = ({ navigation }: { navigation: any }) => {
   const images = {
@@ -42,6 +43,7 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
   );
   const [myNumbers, setMyNumbers] = useState('');
   let numbersWasEmpty = true;
+  const endpoint = 'http://localhost:3000/num';
 
   useEffect(() => {
     fetch('https://cloud.raymond.li/data.json').then(response => {
@@ -52,50 +54,69 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
         setNews(res.initialNews);
       });
     });
+    try {
+      AsyncStorage.getItem('mynumbers').then(value => {
+        if (value !== null) {
+          setMyNumbers(value);
+        }
+      });
+    } catch (e) {
+      console.log('Error');
+    }
   }, []);
 
   useEffect(() => {
-    if (myNumbers.trim().length === 0) {
-      // DELETE when empty
-      fetch('http://localhost:3000/num', {
-        method: 'DELETE',
-      }).then(response => {
-        response.json().then(res => {
-          console.log(res);
-        });
+    try {
+      // Persist to storage
+      AsyncStorage.setItem('mynumbers', myNumbers).then(r => {
+        console.log(r);
       });
-    } else if (numbersWasEmpty) {
-      // POST when was empty
-      fetch('http://localhost:3000/num', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          numbers: myNumbers,
-        }),
-      }).then(response => {
-        response.json().then(res => {
-          console.log(res);
+
+      // Send to server
+      if (myNumbers.trim().length === 0) {
+        // DELETE when empty
+        fetch(endpoint, {
+          method: 'DELETE',
+        }).then(response => {
+          response.json().then(res => {
+            console.log(res);
+          });
         });
-      });
-    } else {
-      // PUT when not empty
-      fetch('http://localhost:3000/num', {
-        method: 'PUT',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          numbers: myNumbers,
-        }),
-      }).then(response => {
-        response.json().then(res => {
-          console.log(res);
+      } else if (numbersWasEmpty) {
+        // POST when was empty
+        fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            numbers: myNumbers,
+          }),
+        }).then(response => {
+          response.json().then(res => {
+            console.log(res);
+          });
         });
-      });
+      } else {
+        // PUT when not empty
+        fetch(endpoint, {
+          method: 'PUT',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            numbers: myNumbers,
+          }),
+        }).then(response => {
+          response.json().then(res => {
+            console.log(res);
+          });
+        });
+      }
+    } catch (e) {
+      console.log('Error');
     }
   }, [myNumbers, numbersWasEmpty]);
 
@@ -185,6 +206,7 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
           <TextInput
             style={Styles.search.numbers}
             placeholder="123456"
+            value={myNumbers}
             onChangeText={myNumbersChangedHandler}
           />
         </Section>
