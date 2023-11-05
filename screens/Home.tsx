@@ -40,6 +40,8 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
   const [dateToday, setDateToday] = useState(
     new Date(Date.now()).toLocaleDateString(),
   );
+  const [myNumbers, setMyNumbers] = useState('');
+  let numbersWasEmpty = true;
 
   useEffect(() => {
     fetch('https://cloud.raymond.li/data.json').then(response => {
@@ -51,6 +53,51 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
       });
     });
   }, []);
+
+  useEffect(() => {
+    if (myNumbers.trim().length === 0) {
+      // DELETE when empty
+      fetch('http://localhost:3000/num', {
+        method: 'DELETE',
+      }).then(response => {
+        response.json().then(res => {
+          console.log(res);
+        });
+      });
+    } else if (numbersWasEmpty) {
+      // POST when was empty
+      fetch('http://localhost:3000/num', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          numbers: myNumbers,
+        }),
+      }).then(response => {
+        response.json().then(res => {
+          console.log(res);
+        });
+      });
+    } else {
+      // PUT when not empty
+      fetch('http://localhost:3000/num', {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          numbers: myNumbers,
+        }),
+      }).then(response => {
+        response.json().then(res => {
+          console.log(res);
+        });
+      });
+    }
+  }, [myNumbers, numbersWasEmpty]);
 
   const showResultsHandler = (
     img: ImageProps,
@@ -109,6 +156,11 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
     }
   };
 
+  const myNumbersChangedHandler = (newNumbers: string) => {
+    numbersWasEmpty = myNumbers.trim().length === 0;
+    setMyNumbers(newNumbers);
+  };
+
   return (
     <SafeAreaView style={Styles.screen.container}>
       {/* Scrollable page  */}
@@ -125,6 +177,17 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
             <MaterialIcons name="search" size={24} color="grey" />
           </Pressable>
         </View>
+        {/* My numbers */}
+        <Section>
+          <SectionHeading>
+            <H1>My numbers</H1>
+          </SectionHeading>
+          <TextInput
+            style={Styles.search.numbers}
+            placeholder="123456"
+            onChangeText={myNumbersChangedHandler}
+          />
+        </Section>
         {/*  Today's lottery results */}
         <Section>
           <SectionHeading>

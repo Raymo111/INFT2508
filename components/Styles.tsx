@@ -55,6 +55,11 @@ export const Styles = {
       backgroundColor: '#222',
       borderRadius: 5,
     },
+    numbers: {
+      fontSize: 16,
+      color: '#FFF',
+      letterSpacing: 8,
+    },
   }),
   section: StyleSheet.create({
     container: {
